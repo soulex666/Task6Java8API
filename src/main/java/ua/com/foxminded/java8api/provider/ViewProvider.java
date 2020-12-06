@@ -2,8 +2,8 @@ package ua.com.foxminded.java8api.provider;
 
 import ua.com.foxminded.java8api.domain.Racer;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ViewProvider {
-    String provideView(Map<String, Racer> racers, Map<String, Long> markers);
+    String provideView(List<Racer> racers);
 }

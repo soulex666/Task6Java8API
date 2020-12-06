@@ -1,16 +1,19 @@
 package ua.com.foxminded.java8api.domain;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Racer {
     private final String racerName;
     private final String teamName;
-    private Calendar startRace;
-    private Calendar endRace;
+    private final LocalDateTime startRace;
+    private final LocalDateTime endRace;
 
     public Racer(Builder builder) {
         this.racerName = builder.racerName;
         this.teamName = builder.teamName;
+        this.startRace = builder.startRace;
+        this.endRace = builder.endRace;
     }
 
     public String getRacerName() {
@@ -21,20 +24,12 @@ public class Racer {
         return teamName;
     }
 
-    public Calendar getStartRace() {
+    public LocalDateTime getStartRace() {
         return startRace;
     }
 
-    public Calendar getEndRace() {
+    public LocalDateTime getEndRace() {
         return endRace;
-    }
-
-    public void setStartRace(Calendar startRace) {
-        this.startRace = startRace;
-    }
-
-    public void setEndRace(Calendar endRace) {
-        this.endRace = endRace;
     }
 
     public static Builder builder() {
@@ -44,6 +39,8 @@ public class Racer {
     public static class Builder {
         private String racerName;
         private String teamName;
+        private LocalDateTime startRace;
+        private LocalDateTime endRace;
 
         private Builder() {
         }
@@ -61,30 +58,29 @@ public class Racer {
             this.teamName = teamName;
             return this;
         }
+
+        public Builder withStartRace(LocalDateTime startRace) {
+            this.startRace = startRace;
+            return this;
+        }
+
+        public Builder withEndRace(LocalDateTime endRace) {
+            this.endRace = endRace;
+            return this;
+        }
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Racer racer = (Racer) o;
 
-        if (racerName != null ? !racerName.equals(racer.racerName) : racer.racerName != null) {
-            return false;
-        }
-        if (teamName != null ? !teamName.equals(racer.teamName) : racer.teamName != null) {
-            return false;
-        }
-        if (startRace != null ? !startRace.equals(racer.startRace) : racer.startRace != null) {
-            return false;
-        }
-
-        return endRace != null ? endRace.equals(racer.endRace) : racer.endRace == null;
+        if (!Objects.equals(racerName, racer.racerName)) return false;
+        if (!Objects.equals(teamName, racer.teamName)) return false;
+        if (!Objects.equals(startRace, racer.startRace)) return false;
+        return Objects.equals(endRace, racer.endRace);
     }
 
     @Override

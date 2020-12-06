@@ -56,7 +56,8 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/CharCounterApplication.class</exclude>
+                        <exclude>**/Formula1Application.class</exclude>
+                        <exclude>**/domain/Racer.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -135,7 +136,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
                             <mainClass>
-                                ua.com.foxminded.charcounter.CharCounterApplication
+                                ua.com.foxminded.java8api.Formula1Application
                             </mainClass>
                         </manifest>
                     </archive>
