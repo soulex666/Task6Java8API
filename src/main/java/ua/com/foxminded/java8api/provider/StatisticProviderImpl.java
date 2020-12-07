@@ -26,14 +26,14 @@ public class StatisticProviderImpl implements StatisticProvider {
     }
 
     @Override
-    public String provideRaceStatistics(String filename1, String filename2,
-                                        String filename3) throws IOException {
+    public String provideRaceStatistics(String abbreviationsPath, String startRacePath,
+                                        String endRacePath) throws IOException {
 
-        validator.validate(filename1, filename2, filename3);
+        validator.validate(abbreviationsPath, startRacePath, endRacePath);
 
-        List<String> abbreviations = fileReader.readFile(filename1);
-        List<String> starts = fileReader.readFile(filename2);
-        List<String> ends = fileReader.readFile(filename3);
+        List<String> abbreviations = fileReader.readFile(abbreviationsPath);
+        List<String> starts = fileReader.readFile(startRacePath);
+        List<String> ends = fileReader.readFile(endRacePath);
 
         List<Racer> racers = parser.parseToRacers(abbreviations, starts, ends);
 

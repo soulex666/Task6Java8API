@@ -9,7 +9,7 @@ public class Racer {
     private final LocalDateTime startRace;
     private final LocalDateTime endRace;
 
-    public Racer(Builder builder) {
+    private Racer(Builder builder) {
         this.racerName = builder.racerName;
         this.teamName = builder.teamName;
         this.startRace = builder.startRace;
@@ -77,19 +77,15 @@ public class Racer {
 
         Racer racer = (Racer) o;
 
-        if (!Objects.equals(racerName, racer.racerName)) return false;
-        if (!Objects.equals(teamName, racer.teamName)) return false;
-        if (!Objects.equals(startRace, racer.startRace)) return false;
-        return Objects.equals(endRace, racer.endRace);
+        return Objects.equals(racerName, racer.racerName) &&
+                Objects.equals(teamName, racer.teamName) &&
+                Objects.equals(startRace, racer.startRace) &&
+                Objects.equals(endRace, racer.endRace);
     }
 
     @Override
     public int hashCode() {
-        int result = racerName != null ? racerName.hashCode() : 0;
-        result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
-        result = 31 * result + (startRace != null ? startRace.hashCode() : 0);
-        result = 31 * result + (endRace != null ? endRace.hashCode() : 0);
-        return result;
+        return Objects.hash(racerName, teamName, startRace, endRace);
     }
 
     @Override

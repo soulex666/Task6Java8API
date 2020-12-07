@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 public class ParserImpl implements Parser {
@@ -15,21 +16,23 @@ public class ParserImpl implements Parser {
     private static final int NUMBER_THREE = 3;
 
     @Override
-    public List<Racer> parseToRacers(List<String> list1, List<String> list2, List<String> list3) {
+    public List<Racer> parseToRacers(List<String> listFromAbbreviationsFile,
+                                     List<String> listFromStartFile, List<String> listFromEndFile) {
         final List<Racer> listOfRaces = new ArrayList<>();
 
-        Collections.sort(list1);
-        Collections.sort(list2);
-        Collections.sort(list3);
+        Collections.sort(listFromAbbreviationsFile);
+        Collections.sort(listFromStartFile);
+        Collections.sort(listFromEndFile);
 
-        for (int i = 0; i < list1.size(); i++) {
+
+        for (int i = 0; i < listFromAbbreviationsFile.size(); i++) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
-            String[] temps = list1.get(i).split(UNDERLINE_DELIMITER);
+            String[] temps = listFromAbbreviationsFile.get(i).split(UNDERLINE_DELIMITER);
             String racerName = temps[1];
             String teamName = temps[2];
-            LocalDateTime startRace = LocalDateTime.parse(list2.get(i)
+            LocalDateTime startRace = LocalDateTime.parse(listFromStartFile.get(i)
                     .substring(NUMBER_THREE), formatter);
-            LocalDateTime endRace= LocalDateTime.parse(list3.get(i)
+            LocalDateTime endRace= LocalDateTime.parse(listFromEndFile.get(i)
                     .substring(NUMBER_THREE), formatter);
             listOfRaces.add(createRacer(racerName, teamName, startRace, endRace));
         }

@@ -16,11 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import ua.com.foxminded.java8api.domain.Racer;
 import ua.com.foxminded.java8api.parser.Parser;
-import ua.com.foxminded.java8api.parser.ParserImpl;
 import ua.com.foxminded.java8api.reader.FileReader;
-import ua.com.foxminded.java8api.reader.FileReaderImpl;
 import ua.com.foxminded.java8api.validator.Validator;
-import ua.com.foxminded.java8api.validator.ValidatorImpl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -75,21 +72,5 @@ class StatisticProviderImplTest {
         verify(fileReader, times(3)).readFile(fileName);
         verify(parser).parseToRacers(mockList, mockList, mockList);
         verify(viewProvider).provideView(mockRacerList);
-    }
-
-    @Test
-    void provideRaceStatisticsShouldReturnCorrectResult() throws IOException {
-        String expected =   "1.  Sebastian Vettel| FERRARI                  | 1:04.415\n" +
-                            "2.  Daniel Ricciardo| RED BULL RACING TAG HEUER| 1:12.013\n" +
-                            "3.  Valtteri Bottas | MERCEDES                 | 1:12.434";
-
-        final StatisticProvider maker = new StatisticProviderImpl(new ValidatorImpl(), new FileReaderImpl(),
-                new ParserImpl(), new ViewProviderImpl());
-
-        String actual = maker.provideRaceStatistics("src\\test\\resources\\abbreviations.txt",
-                "src\\test\\resources\\start.log",
-                "src\\test\\resources\\end.log");
-
-        assertThat(actual).isEqualTo(expected);
     }
 }

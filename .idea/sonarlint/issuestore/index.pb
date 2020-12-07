@@ -27,3 +27,23 @@ r
 Bsrc/main/java/ua/com/foxminded/java8api/reader/FileReaderImpl.java,0\7\0742bda1eee6c46b600c6200578df12afdab6a26
 {
 Ksrc/main/java/ua/com/foxminded/java8api/provider/StatisticProviderImpl.java,e\a\ea94022d07e90ca0c25abd0fbba6c37382654c39
+T
+$src/test/resources/abbreviations.txt,1\f\1f7abe7c8e9932a284438bb10bed1ebc68ec8554
+J
+src/test/resources/end.log,a\f\aff3a9646349cdd648782f289da8c921e1886667
+v
+Fsrc/test/java/ua/com/foxminded/java8api/reader/FileReaderImplTest.java,b\e\be708d2883d47b86b971e68a16260cd4463062bd
+r
+Bsrc/test/java/ua/com/foxminded/java8api/parser/ParserImplTest.java,a\9\a9737904a4d7e8a7a00ab7bfd00d0b06fc8c601e
+L
+src/test/resources/start.log,e\e\ee4453573316cb94a4b1da30d9c33a0b2379d14e
+Z
+*src/test/resources/text file for tests.txt,1\6\1691e485cafeea924ce419630140fba6e1010d88
+x
+Hsrc/test/java/ua/com/foxminded/java8api/validator/ValidatorImplTest.java,c\1\c1554a5f712ee30f122d3a10c386479111c542f8
+z
+Jsrc/test/java/ua/com/foxminded/java8api/provider/ViewProviderImplTest.java,e\b\eb5faf9398355f4d8a73fb24391e358b7733cfa4
+
+Osrc/test/java/ua/com/foxminded/java8api/provider/StatisticProviderImplTest.java,b\d\bdc667285b47bffa46cea5df28ad0388f702db83
+Å
+Qsrc/test/java/ua/com/foxminded/java8api/provider/StatisticProviderImplITTest.java,a\c\ac073a12b78085652934ca6784c0ec30921be78c

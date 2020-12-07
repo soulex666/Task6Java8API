@@ -6,7 +6,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewProviderImpl implements ViewProvider {
@@ -21,14 +23,14 @@ public class ViewProviderImpl implements ViewProvider {
     private static final String PERCENT_DASH_DELIMITER = "%-";
     private static final String LOWER_CASE_S = "s";
     private static final int NUMBER_SIXTEEN = 16;
-    private static final int NUMBER_ZERO = 0;
-    private static final int NUMBER_ONE = 16;
+    private static final int NUMBER_FIFTEEN = 16;
 
     @Override
     public String provideView(List<Racer> racers) {
         StringBuilder finalView = new StringBuilder();
         int maxNameLength = 0;
         int maxTeamLength = 0;
+
 
         for (Racer temp : racers) {
             if (temp.getRacerName().length() > maxNameLength) {
@@ -52,7 +54,7 @@ public class ViewProviderImpl implements ViewProvider {
                     .append(String.format(VERTICAL_LINE_FORMATTER, VERTICAL_LINE_DELIMITER))
                     .append(calculateBestTime(temp.getStartRace(), temp.getEndRace()))
                     .append(NEWLINE_DELIMITER);
-            if (count == 15) {
+            if (count == NUMBER_FIFTEEN) {
                 finalView.append(String.join(EMPTY_STRING,
                         Collections.nCopies((maxNameLength + maxTeamLength + NUMBER_SIXTEEN),
                                 DASH_DELIMITER)))
