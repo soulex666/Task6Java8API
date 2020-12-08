@@ -23,44 +23,30 @@ public class ViewProviderImpl implements ViewProvider {
     private static final String PERCENT_DASH_DELIMITER = "%-";
     private static final String LOWER_CASE_S = "s";
     private static final int NUMBER_SIXTEEN = 16;
-    private static final int NUMBER_FIFTEEN = 16;
+    private static final int NUMBER_FIFTEEN = 15;
+    private static int count = 0;
 
     @Override
     public String provideView(List<Racer> racers) {
         StringBuilder finalView = new StringBuilder();
-        int maxNameLength = 0;
-        int maxTeamLength = 0;
+        int maxNameLength = racers.stream()
+                .max(Comparator.comparing(
+                        i -> i.getRacerName().length()))
+                .get()
+                .getRacerName()
+                .length();
+
+        int maxTeamLength = racers.stream()
+                .max(Comparator.comparing(
+                        i -> i.getTeamName().length()))
+                .get()
+                .getTeamName()
+                .length();
 
 
-        for (Racer temp : racers) {
-            if (temp.getRacerName().length() > maxNameLength) {
-                maxNameLength = temp.getRacerName().length();
-            }
-
-            if (temp.getTeamName().length() > maxTeamLength) {
-                maxTeamLength = temp.getTeamName().length();
-            }
-        }
-
-        int count = 0;
-        for (Racer temp : racers) {
-            count++;
-            finalView.append(String.format(COUNTER_DELIMITER, count + DOT_DELIMITER))
-                    .append(String.format((PERCENT_DASH_DELIMITER + maxNameLength + LOWER_CASE_S),
-                            temp.getRacerName()))
-                    .append(String.format(VERTICAL_LINE_FORMATTER, VERTICAL_LINE_DELIMITER))
-                    .append(String.format((PERCENT_DASH_DELIMITER + maxTeamLength + LOWER_CASE_S),
-                            temp.getTeamName()))
-                    .append(String.format(VERTICAL_LINE_FORMATTER, VERTICAL_LINE_DELIMITER))
-                    .append(calculateBestTime(temp.getStartRace(), temp.getEndRace()))
-                    .append(NEWLINE_DELIMITER);
-            if (count == NUMBER_FIFTEEN) {
-                finalView.append(String.join(EMPTY_STRING,
-                        Collections.nCopies((maxNameLength + maxTeamLength + NUMBER_SIXTEEN),
-                                DASH_DELIMITER)))
-                        .append(NEWLINE_DELIMITER);
-            }
-        }
+        racers.forEach(temp ->
+                finalView.append(stringView(temp, maxNameLength, maxTeamLength)));
+        count = 0;
 
         return finalView.substring(0, finalView.length() - 1);
     }
@@ -70,5 +56,26 @@ public class ViewProviderImpl implements ViewProvider {
         DateFormat formatter = new SimpleDateFormat(OUTPUT_TIME_FORMATTER);
 
         return formatter.format(bestRaceTime);
+    }
+
+    private String stringView(Racer racer, int maxNameLength, int maxTeamLength) {
+        count++;
+        StringBuilder stringView = new StringBuilder();
+        stringView.append(String.format(COUNTER_DELIMITER, count + DOT_DELIMITER))
+                .append(String.format((PERCENT_DASH_DELIMITER + maxNameLength + LOWER_CASE_S),
+                        racer.getRacerName()))
+                .append(String.format(VERTICAL_LINE_FORMATTER, VERTICAL_LINE_DELIMITER))
+                .append(String.format((PERCENT_DASH_DELIMITER + maxTeamLength + LOWER_CASE_S),
+                        racer.getTeamName()))
+                .append(String.format(VERTICAL_LINE_FORMATTER, VERTICAL_LINE_DELIMITER))
+                .append(calculateBestTime(racer.getStartRace(), racer.getEndRace()))
+                .append(NEWLINE_DELIMITER);
+        if (count == NUMBER_FIFTEEN) {
+            stringView.append(String.join(EMPTY_STRING,
+                    Collections.nCopies((maxNameLength + maxTeamLength + NUMBER_SIXTEEN),
+                            DASH_DELIMITER)))
+                    .append(NEWLINE_DELIMITER);
+        }
+        return stringView.toString();
     }
 }
