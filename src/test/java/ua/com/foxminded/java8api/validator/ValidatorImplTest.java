@@ -25,7 +25,7 @@ class ValidatorImplTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> validator.validate(null, SECOND_FILE_FOR_TESTS, THIRD_FILE_FOR_TESTS));
 
-        assertThat(exception.getMessage()).isEqualTo("First argument is null");
+        assertThat(exception.getMessage()).isEqualTo("One of the arguments is null");
     }
 
     @Test
@@ -33,7 +33,7 @@ class ValidatorImplTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> validator.validate(FIRST_FILE_FOR_TESTS, null, THIRD_FILE_FOR_TESTS));
 
-        assertThat(exception.getMessage()).isEqualTo("Second argument is null");
+        assertThat(exception.getMessage()).isEqualTo("One of the arguments is null");
     }
 
     @Test
@@ -41,7 +41,7 @@ class ValidatorImplTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> validator.validate(FIRST_FILE_FOR_TESTS, SECOND_FILE_FOR_TESTS, null));
 
-        assertThat(exception.getMessage()).isEqualTo("Third argument is null");
+        assertThat(exception.getMessage()).isEqualTo("One of the arguments is null");
     }
 
     @Test
@@ -51,7 +51,7 @@ class ValidatorImplTest {
                         SECOND_FILE_FOR_TESTS,
                         THIRD_FILE_FOR_TESTS));
 
-        assertThat(exception.getMessage()).isEqualTo("First argument is empty");
+        assertThat(exception.getMessage()).isEqualTo("One of the arguments is empty");
     }
 
     @Test
@@ -61,7 +61,7 @@ class ValidatorImplTest {
                         EMPTY_STRING_FOR_TESTS,
                         THIRD_FILE_FOR_TESTS));
 
-        assertThat(exception.getMessage()).isEqualTo("Second argument is empty");
+        assertThat(exception.getMessage()).isEqualTo("One of the arguments is empty");
     }
 
     @Test
@@ -71,7 +71,7 @@ class ValidatorImplTest {
                         SECOND_FILE_FOR_TESTS,
                         EMPTY_STRING_FOR_TESTS));
 
-        assertThat(exception.getMessage()).isEqualTo("Third argument is empty");
+        assertThat(exception.getMessage()).isEqualTo("One of the arguments is empty");
     }
 
     @Test

@@ -6,10 +6,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ViewProviderImpl implements ViewProvider {
     private static final String NEWLINE_DELIMITER = "\n";
@@ -22,33 +23,29 @@ public class ViewProviderImpl implements ViewProvider {
     private static final String VERTICAL_LINE_FORMATTER = "%-2s";
     private static final String PERCENT_DASH_DELIMITER = "%-";
     private static final String LOWER_CASE_S = "s";
-    private static final int NUMBER_SIXTEEN = 16;
+    private static final int NUMBER_ZERO = 0;
+    private static final int NUMBER_ONE = 1;
     private static final int NUMBER_FIFTEEN = 15;
-    private static int count = 0;
+    private static final int NUMBER_SIXTEEN = 16;
+
 
     @Override
     public String provideView(List<Racer> racers) {
         StringBuilder finalView = new StringBuilder();
-        int maxNameLength = racers.stream()
-                .max(Comparator.comparing(
-                        i -> i.getRacerName().length()))
-                .get()
-                .getRacerName()
-                .length();
 
-        int maxTeamLength = racers.stream()
-                .max(Comparator.comparing(
-                        i -> i.getTeamName().length()))
-                .get()
-                .getTeamName()
-                .length();
+        int maxNameLength = Collections.max(racers.stream()
+                .map(x -> x.getRacerName().length())
+                .collect(Collectors.toList()));
+
+        int maxTeamLength = Collections.max(racers.stream()
+                .map(x -> x.getTeamName().length())
+                .collect(Collectors.toList()));
 
 
-        racers.forEach(temp ->
-                finalView.append(stringView(temp, maxNameLength, maxTeamLength)));
-        count = 0;
+        racers.forEach(racer ->
+                finalView.append(stringView(racer, racers.indexOf(racer), maxNameLength, maxTeamLength)));
 
-        return finalView.substring(0, finalView.length() - 1);
+        return finalView.substring(NUMBER_ZERO, finalView.length() - NUMBER_ONE);
     }
 
     private String calculateBestTime(LocalDateTime startRace, LocalDateTime endRace) {
@@ -58,9 +55,9 @@ public class ViewProviderImpl implements ViewProvider {
         return formatter.format(bestRaceTime);
     }
 
-    private String stringView(Racer racer, int maxNameLength, int maxTeamLength) {
-        count++;
-        StringBuilder stringView = new StringBuilder();
+    private String stringView(Racer racer, int indexOfRacer, int maxNameLength, int maxTeamLength) {
+        final StringBuilder stringView = new StringBuilder();
+        int count = indexOfRacer + NUMBER_ONE;
         stringView.append(String.format(COUNTER_DELIMITER, count + DOT_DELIMITER))
                 .append(String.format((PERCENT_DASH_DELIMITER + maxNameLength + LOWER_CASE_S),
                         racer.getRacerName()))
@@ -76,6 +73,7 @@ public class ViewProviderImpl implements ViewProvider {
                             DASH_DELIMITER)))
                     .append(NEWLINE_DELIMITER);
         }
+
         return stringView.toString();
     }
 }

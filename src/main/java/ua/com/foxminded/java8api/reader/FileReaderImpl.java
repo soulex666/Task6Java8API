@@ -17,6 +17,7 @@ public class FileReaderImpl implements FileReader {
         final Path abbr = new File(filename).toPath();
         try (Stream<String> fileStream = Files.newBufferedReader(abbr).lines()) {
             fileList.addAll(fileStream.collect(Collectors.toList()));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

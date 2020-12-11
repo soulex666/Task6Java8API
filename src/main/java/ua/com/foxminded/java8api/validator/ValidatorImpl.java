@@ -8,28 +8,13 @@ public class ValidatorImpl implements Validator {
 
     @Override
     public void validate(String abbreviationsPath, String startRacePath, String endRacePath) throws FileNotFoundException {
-        if (abbreviationsPath == null) {
-            throw new IllegalArgumentException("First argument is null");
+        if (abbreviationsPath == null || startRacePath == null
+                || endRacePath == null) {
+            throw new IllegalArgumentException("One of the arguments is null");
         }
 
-        if (startRacePath == null) {
-            throw new IllegalArgumentException("Second argument is null");
-        }
-
-        if (endRacePath == null) {
-            throw new IllegalArgumentException("Third argument is null");
-        }
-
-        if (abbreviationsPath.trim().isEmpty()) {
-            throw new IllegalArgumentException("First argument is empty");
-        }
-
-        if (startRacePath.trim().isEmpty()) {
-            throw new IllegalArgumentException("Second argument is empty");
-        }
-
-        if (endRacePath.trim().isEmpty()) {
-            throw new IllegalArgumentException("Third argument is empty");
+        if (abbreviationsPath.trim().isEmpty() || startRacePath.trim().isEmpty() || endRacePath.trim().isEmpty()) {
+            throw new IllegalArgumentException("One of the arguments is empty");
         }
 
         File f = new File(abbreviationsPath);
