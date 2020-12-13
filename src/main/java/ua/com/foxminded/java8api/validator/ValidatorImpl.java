@@ -5,34 +5,29 @@ import java.io.FileNotFoundException;
 
 public class ValidatorImpl implements Validator {
     private static final String THROWS_MESSAGE = "File on the path \"%s\" not found";
+    private static final String FILE_PATH_NULL_MESSAGE = "File path for file \"%s\" is null";
+    private static final String FILE_PATH_EMPTY_MESSAGE = "File path for file \"%s\" is empty";
 
     @Override
-    public void validate(String abbreviationsPath, String startRacePath, String endRacePath) throws FileNotFoundException {
-        if (abbreviationsPath == null || startRacePath == null
-                || endRacePath == null) {
-            throw new IllegalArgumentException("One of the arguments is null");
+    public void validate(String abbreviationsPath, String startRacePath, String endRacePath) {
+        validateFilePath(abbreviationsPath,"file with abbreviation");
+        validateFilePath(startRacePath,"file with start time");
+        validateFilePath(endRacePath,"file with end time");
+    }
+
+    private void validateFilePath(String filePath, String fileRole){
+        if (filePath == null) {
+            throw new IllegalArgumentException(String.format(FILE_PATH_NULL_MESSAGE, fileRole));
         }
 
-        if (abbreviationsPath.trim().isEmpty() || startRacePath.trim().isEmpty() || endRacePath.trim().isEmpty()) {
-            throw new IllegalArgumentException("One of the arguments is empty");
+        if (filePath.trim().isEmpty()) {
+            throw new IllegalArgumentException(String.format(FILE_PATH_EMPTY_MESSAGE, fileRole));
         }
 
-        File f = new File(abbreviationsPath);
+        File f = new File(filePath);
 
         if (!f.exists() || f.isDirectory()) {
-            throw new FileNotFoundException(String.format(THROWS_MESSAGE, f.getAbsolutePath()));
-        }
-
-        File f2 = new File(startRacePath);
-
-        if (!f2.exists() || f2.isDirectory()) {
-            throw new FileNotFoundException(String.format(THROWS_MESSAGE, f2.getAbsolutePath()));
-        }
-
-        File f3 = new File(endRacePath);
-
-        if (!f3.exists() || f3.isDirectory()) {
-            throw new FileNotFoundException(String.format(THROWS_MESSAGE, f3.getAbsolutePath()));
+            throw new FileNotFoundExceptionRuntime(String.format(THROWS_MESSAGE, f.getAbsolutePath()));
         }
     }
 }

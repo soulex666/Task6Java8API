@@ -7,10 +7,8 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ViewProviderImpl implements ViewProvider {
     private static final String NEWLINE_DELIMITER = "\n";
@@ -40,7 +38,6 @@ public class ViewProviderImpl implements ViewProvider {
         int maxTeamLength = Collections.max(racers.stream()
                 .map(x -> x.getTeamName().length())
                 .collect(Collectors.toList()));
-
 
         racers.forEach(racer ->
                 finalView.append(stringView(racer, racers.indexOf(racer), maxNameLength, maxTeamLength)));
