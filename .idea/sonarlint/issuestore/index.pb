@@ -47,3 +47,7 @@ Jsrc/test/java/ua/com/foxminded/java8api/provider/ViewProviderImplTest.java,e\b
 Osrc/test/java/ua/com/foxminded/java8api/provider/StatisticProviderImplTest.java,b\d\bdc667285b47bffa46cea5df28ad0388f702db83
 Å
 Qsrc/test/java/ua/com/foxminded/java8api/provider/StatisticProviderImplITTest.java,a\c\ac073a12b78085652934ca6784c0ec30921be78c
+[
++src/test/resources/empty file for tests.txt,a\e\ae1143386117c598ef24dfeee7373d72795f0904
+É
+Ssrc/main/java/ua/com/foxminded/java8api/validator/FileNotFoundExceptionRuntime.java,b\4\b4ad601ae5cde0784af7dcae6e7a50c25f4bedf9

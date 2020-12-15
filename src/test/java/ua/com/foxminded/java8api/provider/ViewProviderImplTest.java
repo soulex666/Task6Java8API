@@ -16,7 +16,7 @@ class ViewProviderImplTest {
     private final ViewProvider provider = new ViewProviderImpl();
 
     @Test
-    void provideViewShouldReturnCorrectResult() {
+    void provideViewShouldReturnCorrectResultWhenWeHaveMoreThanFifteenLines() {
         String expected =   "1.  Sebastian Vettel | FERRARI                  | 1:04.415\n" +
                 "2.  Daniel Ricciardo | RED BULL RACING TAG HEUER| 1:12.013\n" +
                 "3.  Valtteri Bottas  | MERCEDES                 | 1:12.434\n" +
@@ -133,6 +133,39 @@ class ViewProviderImplTest {
                 .withTeamName("SCUDERIA TORO ROSSO HONDA")
                 .withStartRace(LocalDateTime.parse("2018-05-24_12:14:51.985", formatter))
                 .withEndRace(LocalDateTime.parse("2018-05-24_12:16:05.164", formatter))
+                .build());
+
+        String actual = provider.provideView(temp);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void provideViewShouldReturnCorrectResultWhenWeHaveLessThanFifteenLines() {
+        String expected = "1.  Sebastian Vettel| FERRARI                  | 1:04.415\n" +
+                "2.  Daniel Ricciardo| RED BULL RACING TAG HEUER| 1:12.013\n" +
+                "3.  Valtteri Bottas | MERCEDES                 | 1:12.434";
+
+        final List<Racer> temp = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+
+        temp.add(Racer.builder()
+                .withRacerName("Sebastian Vettel")
+                .withTeamName("FERRARI")
+                .withStartRace(LocalDateTime.parse("2018-05-24_12:02:58.917", formatter))
+                .withEndRace(LocalDateTime.parse("2018-05-24_12:04:03.332", formatter))
+                .build());
+        temp.add(Racer.builder()
+                .withRacerName("Daniel Ricciardo")
+                .withTeamName("RED BULL RACING TAG HEUER")
+                .withStartRace(LocalDateTime.parse("2018-05-24_12:14:12.054", formatter))
+                .withEndRace(LocalDateTime.parse("2018-05-24_12:15:24.067", formatter))
+                .build());
+        temp.add(Racer.builder()
+                .withRacerName("Valtteri Bottas")
+                .withTeamName("MERCEDES")
+                .withStartRace(LocalDateTime.parse("2018-05-24_12:00:00.000", formatter))
+                .withEndRace(LocalDateTime.parse("2018-05-24_12:01:12.434", formatter))
                 .build());
 
         String actual = provider.provideView(temp);

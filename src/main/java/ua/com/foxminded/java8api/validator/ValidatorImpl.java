@@ -1,7 +1,6 @@
 package ua.com.foxminded.java8api.validator;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class ValidatorImpl implements Validator {
     private static final String THROWS_MESSAGE = "File on the path \"%s\" not found";
@@ -24,10 +23,10 @@ public class ValidatorImpl implements Validator {
             throw new IllegalArgumentException(String.format(FILE_PATH_EMPTY_MESSAGE, fileRole));
         }
 
-        File f = new File(filePath);
+        File fileFromPath = new File(filePath);
 
-        if (!f.exists() || f.isDirectory()) {
-            throw new FileNotFoundExceptionRuntime(String.format(THROWS_MESSAGE, f.getAbsolutePath()));
+        if (!fileFromPath.exists() || fileFromPath.isDirectory()) {
+            throw new FileNotFoundExceptionRuntime(String.format(THROWS_MESSAGE, fileFromPath.getAbsolutePath()));
         }
     }
 }
